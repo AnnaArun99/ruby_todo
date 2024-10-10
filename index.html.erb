@@ -1,0 +1,23 @@
+<h1>งานที่ยังไม่เสร็จ</h1>
+
+<ul>
+  <% @tasks.each do |task| %>
+    <li>
+      <%= task.title %> - <%= link_to 'ทำเครื่องหมายว่าสำเร็จแล้ว', complete_task_path(task), method: :patch %>
+    </li>
+  <% end %>
+</ul>
+
+<h2>สร้างงานใหม่</h2>
+<%= form_with model: @task, url: tasks_path, local: true do |form| %>
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+  <%= form.hidden_field :status, value: 0 %>  <!-- ตั้งค่า status เป็น incomplete (0) -->
+  <div>
+    <%= form.submit 'สร้างงาน' %>
+  </div>
+<% end %>
+
+<%= link_to 'ทำเครื่องหมายว่าสำเร็จแล้ว', complete_task_path(task), method: :patch %>
